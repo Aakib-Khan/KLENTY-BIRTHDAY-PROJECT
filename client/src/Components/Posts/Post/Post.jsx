@@ -1,13 +1,18 @@
 import { MdDelete, MdMoreHoriz, MdOutlineThumbUpAlt } from "react-icons/md";
 import moment from "moment";
+import { useRecoilState } from "recoil";
+
 
 export default function Post({ post, setCurrentId }) {
   // console.log(post);
+  
+
   const deleteProduct = async (id) => {
     let result = await fetch(`/posts/deletepost/${id}`, {
       method: "Delete",
     });
     result = await result.json();
+    
   };
 
   const sendWishMail  =()=>{

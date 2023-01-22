@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
+
 import Post from "./Post/Post";
 
 export default function Posts({ setCurrentId }) {
   const [posts, setPosts] = useState([]);
-
-  // console.log(  posts)
+  
+  
   async function getProducts() {
     let result = await fetch("/posts");
     result = await result.json();
     setPosts(result);
   }
   useEffect(() => {
-    getProducts();
+    getProducts()
   },);
 
   return (

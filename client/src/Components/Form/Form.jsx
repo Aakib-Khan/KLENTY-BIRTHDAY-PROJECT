@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import FileBase from "react-file-base64";
 
+
 export default function Form({ setCurrentId, currentId }) {
-  const [from, setfrom] = useState('')
-  const [name, setName] = useState("")
+  const [from, setfrom] = useState("");
+  const [name, setName] = useState("");
   const [email, setemail] = useState("");
   const [date, setDate] = useState("");
   const [message, setMessage] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
+  
 
 
   const clear = (e) => {
-    setCurrentId(null)
+    setCurrentId(null);
     setemail("");
     setfrom("");
     setName("");
@@ -37,25 +39,23 @@ export default function Form({ setCurrentId, currentId }) {
   }, [currentId]);
 
   const updateProduct = async () => {
-    let result = await fetch(
-      `/posts/updatepost/${currentId}`,
-      {
-        method: "put",
-        body: JSON.stringify({
-          from,
-          name,
-          date,
-          email,
-          message,
-          selectedFile,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    let result = await fetch(`/posts/updatepost/${currentId}`, {
+      method: "put",
+      body: JSON.stringify({
+        from,
+        name,
+        date,
+        email,
+        message,
+        selectedFile,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     result = await result.json();
     clear();
+    
   };
   const addPost = async (e) => {
     let result = await fetch("/posts/addPost", {
@@ -73,25 +73,33 @@ export default function Form({ setCurrentId, currentId }) {
       },
     });
     result = await result.json();
-// console.log(email,date,message,name);
+    // console.log(email,date,message,name);
     clear();
+    
+
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (currentId) {
       updateProduct();
-      
     } else {
       addPost();
-      
     }
+
+    
+    console.log('setfirst ke baad')
   };
-  
+
+  // if (handleSubmit) {
+  // }
+
   return (
     <div className="pl-8 rounded py-9 w-[190px]  ">
-      <h1 className=" font-bold text-lg text-center  tracking-widest ml-2 ">Create a Wish</h1>
+      <h1 className=" font-bold text-lg text-center  tracking-widest ml-2 ">
+        Create a Wish
+      </h1>
       <input
         type="text"
         className="border rounded-md py-1 text-center font-mono my-2 "
@@ -121,7 +129,6 @@ export default function Form({ setCurrentId, currentId }) {
         type="date"
         className="border rounded-md pb-1 text-center font-mono my-2 "
         placeholder="dd-mm-yy "
-        
         value={date}
         onChange={(e) => setDate(e.target.value)}
       />
